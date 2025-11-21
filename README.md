@@ -19,9 +19,9 @@ This repo contains all custom code and resources used to process, analyze and vi
 ## Pipeline Overview
 
 Data analysis largely consists of three mian phases: 
-1. [Data Processing](#data-processing)
-2. [Constructing and Annotating Refined Isoforms](#isoform-annotations)
-3. [Running Downstream Analyses](#running-downstream-analyses)
+1. [Data Processing](#1-data-processing)
+2. [Constructing and Annotating Refined Isoforms](#2-isoform-annotations)
+3. [Running Downstream Analyses](#3-running-downstream-analyses)
    - Differential analyses and isoform switching
    - Predicted RNA secondary structures and Minimum Free Energy (MFE)
    - Weighted gene co-expression dynamics of isoforms
@@ -29,8 +29,27 @@ Data analysis largely consists of three mian phases:
   
 <img width="9921" height="7323" alt="FIGURE_02_revised" src="https://github.com/user-attachments/assets/3a427732-cb9d-4db5-bda4-749497cf320c" />
 
-## Data Processing
+## 1. Data Processing
 
-## Isoform Annotations
+- Illumina short-read RNA-sequencing data (RAPiD)
+- PacBio long-read RNA-sequencing data (IsoSeq3, Minimap2, TAMA)
+- Additional FANS-derived neuronal and non-neuronal nuclei data (RAPiD)
 
-## Running Downstream Analyses
+## 2. Isoform Annotations
+
+- Characterizing HQ isoforms (SQANTI3)
+- Comparing isoform annotations across cell types and brain regions (gffcompare)
+- Quantifying IsoSeq data using short-read data (Salmon)
+- Validating isoform full-length models (5' and 3' end support)
+- Predicting isoform protein-coding potential
+- Characterizing alternative splicing events
+- Visualizing isoforms
+
+## 3. Running Downstream Analyses
+
+- Differential gene expression analysis
+- Differential transcript/isoform expression analysis
+- Differential transcript usage
+- Isoform switching
+- Weighted gene co-expression analysis
+- Neurological disease enrichment analysis
