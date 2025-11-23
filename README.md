@@ -22,10 +22,6 @@ Data analysis largely consists of three mian phases:
 1. [Data Processing](#1-data-processing)
 2. [Constructing and Annotating Refined Isoforms](#2-isoform-annotations)
 3. [Running Downstream Analyses](#3-running-downstream-analyses)
-   - Differential analyses and isoform switching
-   - Predicted RNA secondary structures and Minimum Free Energy (MFE)
-   - Weighted gene co-expression dynamics of isoforms
-   - Neurological disease enrichment
   
 <img width="9921" height="7323" alt="FIGURE_02_revised" src="https://github.com/user-attachments/assets/3a427732-cb9d-4db5-bda4-749497cf320c" />
 
