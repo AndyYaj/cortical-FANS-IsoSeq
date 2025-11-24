@@ -8,7 +8,7 @@ library(ggrepel) # v0.9.6
 
 # ——— MAIN FIGURES ———
 
-# Location of input files: repo/isoform_annotation/data
+# Location of input files: repo/downstream_analyses/data
 
 # ——————
 # FIG.6A - DENSITY OF NOVEL ISOFORMS PER DEGs
