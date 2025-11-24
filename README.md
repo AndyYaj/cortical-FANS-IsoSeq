@@ -18,7 +18,7 @@ This repo contains all custom code and resources used to process, analyze and vi
 
 ## Pipeline Overview
 
-Data analysis largely consists of three mian phases: 
+Data analysis largely consists of three main phases: 
 1. [Data Processing](#1-data-processing)
 2. [Constructing and Annotating Refined Isoforms](#2-isoform-annotations)
 3. [Running Downstream Analyses](#3-running-downstream-analyses)
