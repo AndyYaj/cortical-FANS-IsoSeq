@@ -25,13 +25,11 @@ Briefly, raw long reads generated on the PacBio Sequel II platform were processs
 
 All of the code used to produce the main figures in the manuscript can be found in [code](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code).  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
 
-code
-
 ## Data accessibility
 
 | Data | Description | Reference |
 |--------|-------------|------|
-| IsoSeq Long Reads | Raw IsoSeq long reads | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
+| IsoSeq Long Reads | Raw IsoSeq long reads | [External Link](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) |
 | DLPFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
 | OFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
 | FANS NueN+/- Short Reads | Splice junction support | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
