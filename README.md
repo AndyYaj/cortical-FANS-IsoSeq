@@ -18,11 +18,11 @@ This repo contains all of the code and used to process, analyze and visualize da
 
 Briefly, raw long reads generated on the PacBio Sequel II platform were processsed with IsoSeq3 to generate high-quality full-length transcripts, which were aligned to the GRCh38 genome (GENCODE v38) using minimap2. Transcript models were collapsed and merged across samples within each cell type in the DLPFC and OFC using TAMA to generate nonredundant transcript annotations, followed by classification and QC filtering with SQANTI3. Transcript abundance was quantified using Salmon.
 
-## 1. Code to produce the manuscript figure
+## Code to produce the manuscript figure
 
 All of the code used to produce the main figures in the manuscript can be found in code.  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
 
-## 2. Data accessibility
+## Data accessibility
 
 | Data | Description | Reference |
 |--------|-------------|------|
