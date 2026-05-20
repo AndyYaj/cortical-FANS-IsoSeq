@@ -18,25 +18,12 @@ This repo contains all custom code and resources used to process, analyze and vi
 
 ## Pipeline Overview
 
-Data analysis largely consists of three main phases: 
-1. [Data Processing](#1-data-processing)
-2. [Constructing and Annotating Refined Isoforms](#2-isoform-annotations)
-3. [Running Downstream Analyses](#3-running-downstream-analyses)
+
   
 <img width="9921" height="7323" alt="FIGURE_02_revised" src="https://github.com/user-attachments/assets/3a427732-cb9d-4db5-bda4-749497cf320c" />
 
 ## 1. Code to produce the manuscript figures
 
-| Figure | Description | Path |
-|--------|-------------|------|
-| 01 | Description of figure 1 | `path/to/figure1/` |
-| 02 | Description of figure 2 | `path/to/figure2/` |
-| 03 | Description of figure 3 | `path/to/figure3/` |
-| 04 | Description of figure 4 | `path/to/figure4/` |
-| 05 | Description of figure 5 | `path/to/figure5/` |
-| 06 | Description of figure 6 | `path/to/figure6/` |
-| 07 | Description of figure 7 | `path/to/figure7/` |
-| 08 | Description of figure 8 | `path/to/figure8/` |
 
 ## 2. Data accessibility
 
