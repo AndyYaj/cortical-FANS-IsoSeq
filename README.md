@@ -10,7 +10,10 @@ Correspondance: michael.breen@mssm.edu
 
 Alternative splicing generates extensive transcriptomic diversity in the human brain, but the full cell type-resolved landscape of isoform variation remains unresolved due to the constraints of short-read sequencing. Here, we integrated fluorescence-activated nuclei sorting with long-read (PacBio Iso-Seq) and short-read (Illumina) RNA sequencing to generate isoform-resolved transcriptomes of five major cortical cell types, including MGE-derived GABAergic neurons, glutamatergic neurons, oligodendrocytes, astrocytes, and microglia from adult dorsolateral and orbitofrontal cortex. 
 
-<img width="9921" height="8315" alt="Figure_01_revised" src="https://github.com/user-attachments/assets/d4c1c751-2651-4803-930f-0e88013c0281" />
+<!-- <img width="9921" height="8315" alt="Figure_01_revised" src="https://github.com/user-attachments/assets/d4c1c751-2651-4803-930f-0e88013c0281" /> -->
+
+<img width="2340" height="2340" alt="Graphical_Abstract" src="https://github.com/user-attachments/assets/50a82d5d-646c-4900-a063-01445ca863fb" />
+
 
 This repo contains all of the code and used to process, analyze and visualize data for this study. Additionally, processed and summarized data can be found on [Zonedo](https://zenodo.org/records/20301473) and on the supplemental section of our pre-print. Lastly, cell type-resolved isoforms can be visualized on the [UCSC genome browser](https://genome.ucsc.edu/) using our [BED files](cell_type_resolved_isoforms.zip).
 
@@ -20,7 +23,9 @@ Briefly, raw long reads generated on the PacBio Sequel II platform were processs
 
 ## Code to produce the manuscript figure
 
-All of the code used to produce the main figures in the manuscript can be found in code.  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
+All of the code used to produce the main figures in the manuscript can be found in [code](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code).  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
+
+code
 
 ## Data accessibility
 
