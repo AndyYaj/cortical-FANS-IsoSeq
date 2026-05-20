@@ -25,7 +25,7 @@ All of the code used to produce the main figures in the manuscript can be found 
 ## Data accessibility
 
 | Data | Description |
-|--------|-------------|------|
+|--------|-------------|
 | [IsoSeq Long Reads](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) | Raw DLPFC and OFC IsoSeq long read (BAM) files. |
 | [DLPFC Short Reads](https://www.synapse.org/#!Synapse:syn12034263) | Raw short-read RNA-seq data (cohort 1) — Human DLPFC |
 | OFC Short Reads | Raw short-read RNA-seq data (cohort 2) — Human OFC (GEO accession ID to-be generated) | 
