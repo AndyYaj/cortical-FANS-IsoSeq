@@ -25,27 +25,23 @@ Data analysis largely consists of three main phases:
   
 <img width="9921" height="7323" alt="FIGURE_02_revised" src="https://github.com/user-attachments/assets/3a427732-cb9d-4db5-bda4-749497cf320c" />
 
-## 1. Data Processing
+## 1. Code to produce the manuscript figures
 
-- Illumina short-read RNA-sequencing data (RAPiD)
-- PacBio long-read RNA-sequencing data (IsoSeq3, Minimap2, TAMA)
-- Additional FANS-derived neuronal and non-neuronal nuclei data (RAPiD)
+| Figure | Description | Path |
+|--------|-------------|------|
+| 01 | Description of figure 1 | `path/to/figure1/` |
+| 02 | Description of figure 2 | `path/to/figure2/` |
+| 03 | Description of figure 3 | `path/to/figure3/` |
+| 04 | Description of figure 4 | `path/to/figure4/` |
+| 05 | Description of figure 5 | `path/to/figure5/` |
+| 06 | Description of figure 6 | `path/to/figure6/` |
+| 07 | Description of figure 7 | `path/to/figure7/` |
+| 08 | Description of figure 8 | `path/to/figure8/` |
 
-## 2. Isoform Annotations
+## 2. Data accessibility
 
-- Characterizing HQ isoforms (SQANTI3)
-- Comparing isoform annotations across cell types and brain regions (gffcompare)
-- Quantifying IsoSeq data using short-read data (Salmon)
-- Validating isoform full-length models (5' and 3' end support)
-- Predicting isoform protein-coding potential
-- Characterizing alternative splicing events
-- Visualizing isoforms
-
-## 3. Running Downstream Analyses
-
-- Differential gene expression analysis
-- Differential transcript/isoform expression analysis
-- Differential transcript usage
-- Isoform switching
-- Weighted gene co-expression analysis
-- Neurological disease enrichment analysis
+| Data | Description | Reference |
+|--------|-------------|------|
+| Long Reads | Raw IsoSeq long reads | `path/to/figure1/` |
+| Short Reads 01 | Complementay raw Illumina short read | `path/to/figure2/` |
+| Short Reads 02 | Splice junction support | `path/to/figure2/` |
