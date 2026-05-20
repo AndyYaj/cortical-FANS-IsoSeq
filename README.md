@@ -27,9 +27,9 @@ All of the code used to produce the main figures in the manuscript can be found 
 
 ## Data accessibility
 
-| Data | Description | Reference |
+| Data | Description |
 |--------|-------------|------|
-| IsoSeq Long Reads | Raw IsoSeq long reads | [External Link](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) |
-| DLPFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
-| OFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
-| FANS NueN+/- Short Reads | Splice junction support | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
+| [IsoSeq Long Reads](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) | Raw DLPFC and OFC IsoSeq long read (BAM) files. |
+| [DLPFC Short Reads](https://www.synapse.org/#!Synapse:syn12034263) | Raw short-read RNA-seq data (cohort 1) — Human DLPFC |
+| OFC Short Reads | Raw short-read RNA-seq data (cohort 2) — Human OFC (GEO accession ID to-be generated) | 
+| [FANS NueN+/- Short Reads](https://www.synapse.org/Synapse:syn25716684/wiki/610496) | Raw short-read RNA-seq data (cohort 3) — Human BM10, BM17, BM22, BM36, BM44. | 
