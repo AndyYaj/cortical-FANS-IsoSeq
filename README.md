@@ -12,18 +12,15 @@ Alternative splicing generates extensive transcriptomic diversity in the human b
 
 <img width="9921" height="8315" alt="Figure_01_revised" src="https://github.com/user-attachments/assets/d4c1c751-2651-4803-930f-0e88013c0281" />
 
-We identified more than 220,000 unique full-length isoforms, 35–56% of which were previously unannotated depending on cell type and region. These novel isoforms were longer, contained more exons, and displayed greater coding potential than annotated transcripts. This resource provides a comprehensive, cell type–resolved atlas of isoform diversity in the human cortex and establishes a foundation for mechanistic studies of RNA regulation and disease vulnerability in the brain.
-
-This repo contains all custom code and resources used to process, analyze and visualize data for this study. The raw PacBio IsoSeq and Illumina Short-Read RNA-seq data will be made available shortly on X. Additionally, processed and summarized data can be found on Zonedo and on the supplemental section of our pre-print. Lastly, cell type-resolved isoforms can be visualized on the [UCSC genome browser](https://genome.ucsc.edu/) using our [BED files](cell_type_resolved_isoforms.zip).
+This repo contains all of the code and used to process, analyze and visualize data for this study. Additionally, processed and summarized data can be found on [Zonedo](https://zenodo.org/records/20301473) and on the supplemental section of our pre-print. Lastly, cell type-resolved isoforms can be visualized on the [UCSC genome browser](https://genome.ucsc.edu/) using our [BED files](cell_type_resolved_isoforms.zip).
 
 ## Pipeline Overview
 
+Briefly, raw long reads generated on the PacBio Sequel II platform were processsed with IsoSeq3 to generate high-quality full-length transcripts, which were aligned to the GRCh38 genome (GENCODE v38) using minimap2. Transcript models were collapsed and merged across samples within each cell type in the DLPFC and OFC using TAMA to generate nonredundant transcript annotations, followed by classification and QC filtering with SQANTI3. Transcript abundance was quantified using Salmon.
 
-  
-<img width="9921" height="7323" alt="FIGURE_02_revised" src="https://github.com/user-attachments/assets/3a427732-cb9d-4db5-bda4-749497cf320c" />
+## 1. Code to produce the manuscript figure
 
-## 1. Code to produce the manuscript figures
-
+All of the code used to produce the main figures in the manuscript can be found in code.  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
 
 ## 2. Data accessibility
 
