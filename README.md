@@ -42,6 +42,7 @@ Data analysis largely consists of three main phases:
 
 | Data | Description | Reference |
 |--------|-------------|------|
-| Long Reads | Raw IsoSeq long reads | `path/to/figure1/` |
-| Short Reads 01 | Complementay raw Illumina short read | `path/to/figure2/` |
-| Short Reads 02 | Splice junction support | `path/to/figure2/` |
+| IsoSeq Long Reads | Raw IsoSeq long reads | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
+| DLPFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
+| OFC Short Reads | Complementay raw Illumina short read | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
+| FANS NueN+/- Short Reads | Splice junction support | `[External Link]([https://example.com/figure1](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753))` |
