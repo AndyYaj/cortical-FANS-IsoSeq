@@ -1,4 +1,3 @@
-[02_TAMA.md](https://github.com/user-attachments/files/28103033/02_TAMA.md)
 # TAMA
 
 ## Installing TAMA
