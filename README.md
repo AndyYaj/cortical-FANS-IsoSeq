@@ -6,7 +6,10 @@ Affiliation: Icahn School of Medicine at Mount Sinai, New York, NY
 
 Correspondance: michael.breen@mssm.edu
 
-## Cell type-resolved long-read transcriptomics of the human cortex reveals pervasive alternative splicing and disease-relevant isoforms
+Preprint: [Cell type-resolved long-read transcriptomics of the human cortex reveals pervasive alternative splicing and disease-relevant isoforms
+](https://www.biorxiv.org/content/10.1101/2025.11.25.690524v1)
+
+## Project Overview
 
 Alternative splicing generates extensive transcriptomic diversity in the human brain, but the full cell type-resolved landscape of isoform variation remains unresolved due to the constraints of short-read sequencing. Here, we integrated fluorescence-activated nuclei sorting with long-read (PacBio Iso-Seq) and short-read (Illumina) RNA sequencing to generate isoform-resolved transcriptomes of five major cortical cell types, including MGE-derived GABAergic neurons, glutamatergic neurons, oligodendrocytes, astrocytes, and microglia from adult dorsolateral and orbitofrontal cortex. 
 
