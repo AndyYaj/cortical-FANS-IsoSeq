@@ -32,4 +32,4 @@ All of the code used to produce the main figures in the manuscript can be found 
 | [IsoSeq Long Reads](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) | Raw DLPFC and OFC IsoSeq long read (BAM) files. | [scripts](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code/data_processing) |
 | [DLPFC Short Reads](https://www.synapse.org/#!Synapse:syn12034263) | Raw short-read RNA-seq data (cohort 1) — Human DLPFC | [scritps](https://github.com/CommonMindConsortium/RAPiD-nf) |
 | OFC Short Reads | Raw short-read RNA-seq data (cohort 2) — Human OFC (GEO accession ID in progress) | [scripts](https://github.com/CommonMindConsortium/RAPiD-nf) |
-| [FANS NueN+/- Short Reads](https://www.synapse.org/Synapse:syn25716684/wiki/610496) | Raw short-read RNA-seq data (cohort 3) — Human BM10, BM17, BM22, BM36, BM44. | [scripts](https://github.com/CommonMindConsortium/RAPiD-nf) |
+| [FANS Short Reads](https://www.synapse.org/Synapse:syn25716684/wiki/610496) | Raw short-read RNA-seq data (cohort 3) — Human BM10, BM17, BM22, BM36, BM44. | [scripts](https://github.com/CommonMindConsortium/RAPiD-nf) |
