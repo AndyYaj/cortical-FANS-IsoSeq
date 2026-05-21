@@ -27,7 +27,7 @@ All of the code used to produce the main figures in the manuscript can be found 
 
 ## Data accessibility
 
-| Data | Description | Code for Data Processing | 
+| Data | Description | Data Processing | 
 |------|-------------| ----------------------------|
 | [IsoSeq Long Reads](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE330753) | Raw DLPFC and OFC IsoSeq long read (BAM) files. | [scripts](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code/data_processing) |
 | [DLPFC Short Reads](https://www.synapse.org/#!Synapse:syn12034263) | Raw short-read RNA-seq data (cohort 1) — Human DLPFC | [scritps](https://github.com/CommonMindConsortium/RAPiD-nf) |
