@@ -2,9 +2,6 @@
 # FIGURE_02.R — R SCRIPT FOR GENERATING FIGURE 2 PANELS
 # ———————————
 
-
-# PATH TO INPUT FILES: repo/isoform_annotation/data
-
 library(tidyverse) # v.2.0.0
 library(UpSetR) # v.1.4.0
 
