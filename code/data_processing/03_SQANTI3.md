@@ -30,10 +30,10 @@ This tool is required for GTF processing but may fail during conda installation,
 ```bash
 # Download binary
 wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/gtfToGenePred \
-    -P /sc/arion/projects/breen_lab/SQANTI3-4.2/utilities/
+    -P SQANTI3-4.2/utilities/
 
 # Make executable
-chmod +x /sc/arion/projects/breen_lab/SQANTI3-4.2/utilities/gtfToGenePred
+chmod +x SQANTI3-4.2/utilities/gtfToGenePred
 ```
 
 ## 3. Install cDNA_Cupcake (required dependency)
@@ -68,8 +68,10 @@ However, additional filtering is required because SQANTI3 can fail when encounte
 # Activate TAMA environment
 source activate TAMA
 
+PROJECT_DIR="/path/to/IsoSeq"
+
 # Convert BED → GTF
-python /sc/arion/projects/breen_lab/IsoSeq/tama/tama_go/format_converter/tama_convert_bed_gtf_ensembl_no_cds.py \
+python ${PROJECT_DIR}/tama/tama_go/format_converter/tama_convert_bed_gtf_ensembl_no_cds.py \
     GABAmerged.bed \
     GABAmerged.gtf
 
@@ -90,12 +92,11 @@ After generating a high-confidence transcriptome with TAMA, SQANTI3 is used to p
 module load anaconda3/2020.11
 source activate SQANTI3.env
 
-# Add cDNA_Cupcake to PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:/sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/cDNA_Cupcake-28.0.0
-export PYTHONPATH=$PYTHONPATH:/sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/cDNA_Cupcake-28.0.0/sequence
-
-# Define project directory
 PROJECT_DIR="/path/to/IsoSeq"
+
+# Add cDNA_Cupcake to PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:${PROJECT_DIR}/SQANTI3-4.2/cDNA_Cupcake-28.0.0
+export PYTHONPATH=$PYTHONPATH:${PROJECT_DIR}/SQANTI3-4.2/cDNA_Cupcake-28.0.0/sequence
 
 # Run SQANTI3 QC for GABA
 python /sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/sqanti3_qc.py \
@@ -129,12 +130,11 @@ The output includes corrected transcript models in both FASTA and GTF formats, a
 module load anaconda3/2020.11
 source activate SQANTI3.env
 
-# Add cDNA_Cupcake to PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:/sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/cDNA_Cupcake-28.0.0
-export PYTHONPATH=$PYTHONPATH:/sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/cDNA_Cupcake-28.0.0/sequence
-
-# Define project directory
 PROJECT_DIR="/path/to/IsoSeq"
+
+# Add cDNA_Cupcake to PYTHONPATH
+export PYTHONPATH=$PYTHONPATH${PROJECT_DIR}/SQANTI3-4.2/cDNA_Cupcake-28.0.0
+export PYTHONPATH=$PYTHONPATH:${PROJECT_DIR}/SQANTI3-4.2/cDNA_Cupcake-28.0.0/sequence
 
 # Run SQANTI3 filtering (refinement step)
 python /sc/arion/projects/breen_lab/IsoSeq/SQANTI3-4.2/sqanti3_RulesFilter.py \
