@@ -6,16 +6,13 @@ Affiliation: Icahn School of Medicine at Mount Sinai, New York, NY
 
 Correspondance: michael.breen@mssm.edu
 
-Preprint: [Cell type-resolved long-read transcriptomics of the human cortex reveals pervasive alternative splicing and disease-relevant isoforms
-](https://www.biorxiv.org/content/10.1101/2025.11.25.690524v1)
-
 ## Project Overview
 
 Alternative splicing generates extensive transcriptomic diversity in the human brain, but the full cell type-resolved landscape of isoform variation remains unresolved due to the constraints of short-read sequencing. Here, we integrated fluorescence-activated nuclei sorting with long-read (PacBio Iso-Seq) and short-read (Illumina) RNA sequencing to generate isoform-resolved transcriptomes of five major cortical cell types, including MGE-derived GABAergic neurons, glutamatergic neurons, oligodendrocytes, astrocytes, and microglia from adult dorsolateral and orbitofrontal cortex. 
 
 <img width="2340" height="2340" alt="Graphical_Abstract" src="https://github.com/user-attachments/assets/50a82d5d-646c-4900-a063-01445ca863fb" />
 
-This repo contains all of the code and used to process, analyze and visualize data for this study. Additionally, processed and summarized data can be found on [Zonedo](https://zenodo.org/records/20301473) and on the supplemental section of our pre-print. Lastly, cell type-resolved isoforms can be visualized on the [UCSC genome browser](https://genome.ucsc.edu/) using our [BED files](cell_type_resolved_isoforms.zip) and through our [Rshiny application](https://andyyang-isoseq.share.connect.posit.cloud/).
+This repo contains all of the code and used to process, analyze and visualize data for this [preprint](https://www.biorxiv.org/content/10.1101/2025.11.25.690524v1). Additionally, processed and summarized data can be found on [Zonedo](https://zenodo.org/records/20301473) and on the supplemental section of our pre-print. Lastly, cell type-resolved isoforms can be visualized on the [UCSC genome browser](https://genome.ucsc.edu/) using our [BED files](cell_type_resolved_isoforms.zip) and through our [Rshiny application](https://andyyang-isoseq.share.connect.posit.cloud/).
 
 ## Pipeline Overview
 
