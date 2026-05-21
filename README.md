@@ -16,7 +16,7 @@ This repo contains all of the code and used to process, analyze and visualize da
 
 ## Pipeline Overview
 
-Briefly, raw long reads generated on the PacBio Sequel II platform were processsed with IsoSeq3 to generate high-quality full-length transcripts, which were aligned to the GRCh38 genome (GENCODE v38) using minimap2. Transcript models were collapsed and merged across samples within each cell type in the DLPFC and OFC using TAMA to generate nonredundant transcript annotations, followed by classification and QC filtering with SQANTI3. Transcript abundance was quantified using Salmon.
+Briefly, raw long reads generated on the PacBio Sequel II platform were processsed with IsoSeq3 to generate high-quality full-length transcripts, which were aligned to the GRCh38 genome (GENCODE v38) using `minimap2`. Transcript models were collapsed and merged across samples within each cell type in the DLPFC and OFC using `TAMA` to generate nonredundant transcript annotations, followed by classification and QC filtering with `SQANTI3`. Transcript abundance was quantified using `Salmon`.
 
 <img width="9921" height="7465" alt="PIPELINE_OVERVIEW" src="https://github.com/user-attachments/assets/39b7096d-ae02-4dd3-90a2-4036cda9442a" />
 
