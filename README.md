@@ -23,7 +23,7 @@ Briefly, raw long reads generated on the PacBio Sequel II platform were processs
 
 ## Code to produce the manuscript figures
 
-All of the code used to produce the main figures in the manuscript can be found in [code](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code/main_figures).  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
+All of the code used to produce the main figures in the manuscript can be found in [`code/main_figures/`](https://github.com/AndyYaj/cortical-FANS-IsoSeq/tree/main/code/main_figures).  All of the data used in those analyses can be found on [Zonedo](https://zenodo.org/records/20301473).
 
 ## Data accessibility
 
