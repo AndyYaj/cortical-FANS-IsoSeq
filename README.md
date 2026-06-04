@@ -6,9 +6,11 @@ Authors: Yang A, Rodriguez de los Santos M, Kozlenkov A, Vadukapuram R, Hurd Y, 
 
 Affiliation: Icahn School of Medicine at Mount Sinai, New York, NY 
 
-**Preprint**: https://www.biorxiv.org/content/10.1101/2025.11.25.690524v2
-**Interactive atlas**: https://andyyang.shinyapps.io/Cortical_FANS_IsoSeq/
-**Archived release**: https://doi.org/10.5281/zenodo.20301473
+Preprint: https://www.biorxiv.org/content/10.1101/2025.11.25.690524v2
+
+Interactive atlas: https://andyyang.shinyapps.io/Cortical_FANS_IsoSeq/
+
+Archived release: https://doi.org/10.5281/zenodo.20301473
 
 ---
 
