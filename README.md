@@ -32,44 +32,124 @@ Briefly, raw long reads generated on the PacBio Sequel II platform were processs
 
 <img width="9921" height="7465" alt="PIPELINE_OVERVIEW" src="https://github.com/user-attachments/assets/39b7096d-ae02-4dd3-90a2-4036cda9442a" />
 
+
+This repository contains a Snakemake workflow for processing PacBio Iso-Seq long-read transcriptome sequencing data from circular consensus sequence (CCS) reads through transcript annotation with SQANTI3. The workflow automates long-read preprocessing, genome alignment, transcript collapsing, and transcript classification using established long-read transcriptomics tools.
+
+The pipeline is intended for reproducible analysis of PacBio Iso-Seq datasets and was developed for the analyses described in our pre-print.
+
 ---
 
 ## System requirements
 
 **Operating systems tested:**
-- Linux: Ubuntu 20.04 LTS, CentOS 7
-- macOS: Sonoma 14.x (analysis scripts only; long-read processing tools are Linux-only)
+This workflow is designed for Linux (x86_64) systems.
 
-**Software dependencies:**
+Tested on:
+- Rocky Linux 9.6
 
-Long-read processing:
-- PacBio SMRT Link v11.0
-- IsoSeq v3.8
-- minimap2 v2.24
-- TAMA (release 2021-12-08)
-- SQANTI3 v5.1.2
-- GffCompare v0.12.6
+**Non-standard hardware**
+The pipeline is intended for execution on Linux workstations or high-performance computing (HPC) clusters. No specialized hardware (e.g., GPUs) is required.
 
-Short-read processing:
-- STAR v2.7.10
-- Salmon v1.10.0
-- Subread/featureCounts v2.0.3
-- bcl2fastq2 v2.20
+Recommended resources:
 
-Analysis (R ≥ 4.3.0):
-- DESeq2 v1.38, edgeR v3.40, limma v3.54
-- DRIMSeq v1.26, stageR v1.20
-- WGCNA v1.72
-- ComplexHeatmap v2.14, pheatmap v1.0.12, ggplot2 v3.4.4
+- ≥16 CPU cores
+- 32–64 GB RAM
 
-Analysis (Python ≥ 3.10):
-- SUPPA2 v2.3
-- CPAT v3.0.4, CPC2 v2.0, GeneMarkS-T v5.1
-- ViennaRNA v2.5.1
-- pandas, numpy, matplotlib v3.7, seaborn v0.12
+Typical memory usage:
 
-**Non-standard hardware:**
-None. All analyses run on standard Linux compute infrastructure. Long-read alignment and isoform reconstruction benefit from ≥64 GB RAM and ≥16 CPU cores.
+- Most pipeline steps require <5 GB RAM
+- Peak memory usage (~20–25 GB RAM) occurs during minimap2 alignment and TAMA transcript collapsing
+
+---
+
+## Software dependencies
+
+The workflow uses Conda environments to manage software dependencies.
+
+Major software components include:
+
+- Snakemake
+- IsoSeq3
+- minimap2
+- TAMA
+- SQANTI3
+
+Exact software versions are specified in the Conda environment files located in:
+
+```
+demo/envs/
+```
+---
+
+## Prerequisites
+The following software should already be installed and available in your environment before running the installation script:
+
+- Git (v.2.46.0)
+- Conda (v.26.1.1) (also: Miniconda or Anaconda)
+- Snakemake (v.9.23.1)
+- samtools (v.1.21)
+
+The installation script installs the remaining workflow-specific software using Conda environments.
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/AndyYaj/cortical-FANS-IsoSeq.git
+cd cortical-FANS-IsoSeq
+```
+
+Install required software:
+
+```bash
+./install.sh
+```
+
+Download required reference files:
+
+```bash
+./download_references.sh
+```
+
+Typical installation time is approximately 30–60 minutes, depending on network performance and Conda environment creation.
+
+---
+
+## Demo
+A complete end-to-end demonstration using a small example dataset is provided in:
+
+```
+demo/
+```
+
+See:
+
+```
+demo/README.md
+```
+
+for detailed instructions.
+
+Demo input data are hosted separately on Zenodo due to GitHub file size limitations. The `demo/download_demo_data.sh` script retrieves the required files automatically.
+
+---
+
+## Running the pipeline on your own data
+
+The Snakemake workflow provided in `demo/` is intended solely as a minimal reproducible example using a reduced dataset.
+
+For analysis of full PacBio Iso-Seq datasets, the repository includes the complete analysis scripts in:
+
+```
+code/
+```
+
+These scripts implement the full workflow used for the manuscript, including processing multiple samples, donors, and cell types. Users should adapt these scripts and configuration files to their own experimental design and input data.
+
+The demo workflow serves as a reference implementation for verifying software installation and demonstrating the major processing steps.
 
 ---
 
