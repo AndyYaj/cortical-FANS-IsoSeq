@@ -1,0 +1,18 @@
+name: sqanti3
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.7
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+  - pysam
+  - biopython
+  - gffutils
+  - scikit-learn
+  - pip

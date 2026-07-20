@@ -1,0 +1,58 @@
+# ----------------------------
+# Sample configuration
+# ----------------------------
+samples:
+  - 276_GABA
+
+# ----------------------------
+# Project structure
+# ----------------------------
+data_dir: data
+output_dir: results
+log_dir: logs
+
+# ----------------------------
+# References (installed by install.sh)
+# ----------------------------
+references:
+  fasta: references/GRCh38.primary_assembly.genome.fa
+  gtf: references/gencode.v38.annotation.gtf
+  fai: references/GRCh38.primary_assembly.genome.fa.fai
+  primers: references/isoseq_primers.fa
+
+# ----------------------------
+# External tools (installed into tools/)
+# ----------------------------
+tools:
+  tama: tools/tama
+  sqanti3: tools/SQANTI3
+  cdna_cupcake: tools/cDNA_Cupcake
+
+# ----------------------------
+# IsoSeq parameters
+# ----------------------------
+isoseq:
+  threads_ccs: 8
+  threads_lima: 4
+  threads_refine: 4
+
+# ----------------------------
+# Alignment parameters
+# ----------------------------
+minimap2:
+  threads: 16
+  preset: splice
+  extra: "-uf --secondary=no -C5 --MD"
+
+# ----------------------------
+# TAMA parameters
+# ----------------------------
+tama:
+  collapse_params: ""
+  threads: 4
+
+# ----------------------------
+# SQANTI3 parameters
+# ----------------------------
+sqanti3:
+  threads: 8

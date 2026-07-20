@@ -1,0 +1,19 @@
+name: isoseq3
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.7
+  - biopython
+  - isoseq3
+  - pbccs
+  - lima
+  - pbcoretools
+  - bamtools
+  - pysam
+  - pbbam
+  - bam2fastx
+  - samtools
+  - minimap2

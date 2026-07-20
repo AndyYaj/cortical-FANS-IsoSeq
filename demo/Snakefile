@@ -1,0 +1,427 @@
+import os
+from datetime import datetime
+
+configfile: "config.yaml"
+
+# ----------------------------
+# Resolve the project root from wherever Snakemake is actually
+# invoked, rather than relying on a hardcoded path in config.yaml.
+# data_dir / output_dir / log_dir in config.yaml stay as simple
+# relative names ("data", "results", "logs") and get anchored
+# here into absolute paths, so behavior no longer depends on the
+# repo's location on disk.
+# ----------------------------
+PROJECT_DIR = os.getcwd()
+DATA_DIR = os.path.join(PROJECT_DIR, config["data_dir"])
+OUTPUT_DIR = os.path.join(PROJECT_DIR, config["output_dir"])
+LOG_DIR = os.path.join(PROJECT_DIR, config["log_dir"])
+
+# Match install.sh: keep pip's wheel cache and tmp files on project
+# storage rather than the home directory, since some conda envs
+# (e.g. SQANTI3's) pull in pip packages that build wheels, and a
+# small home-dir quota can silently break `--use-conda` env creation
+# mid-run otherwise.
+os.environ["PIP_CACHE_DIR"] = os.path.join(PROJECT_DIR, ".pip", "cache")
+os.environ["TMPDIR"] = os.path.join(PROJECT_DIR, ".tmp")
+os.makedirs(os.environ["PIP_CACHE_DIR"], exist_ok=True)
+os.makedirs(os.environ["TMPDIR"], exist_ok=True)
+
+RUN_LOG = os.path.join(LOG_DIR, "workflow_run.log")
+
+SAMPLES = config["samples"]
+
+
+def _log_run_event(message):
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(RUN_LOG, "a") as f:
+        f.write(f"[{datetime.now().isoformat(timespec='seconds')}] "
+                f"project_dir={PROJECT_DIR} - {message}\n")
+
+
+onstart:
+    _log_run_event("Workflow started")
+
+onsuccess:
+    _log_run_event("Workflow completed successfully")
+
+onerror:
+    _log_run_event("Workflow FAILED")
+
+
+# =========================================================
+# 0. FINAL TARGETS
+# Without this rule, Snakemake falls back to treating the FIRST
+# rule in the file as the default target (index_genome), which is
+# why `snakemake --cores 8` was not actually running the pipeline
+# for any sample. `rule all` makes the real end products (cleaned
+# GTFs for every configured sample) the default target.
+# =========================================================
+rule all:
+    input:
+        config["references"]["fai"],
+        expand(
+            f"{OUTPUT_DIR}/{{sample}}/{{sample}}.cleaned.tama.gtf",
+            sample=SAMPLES,
+        ),
+        expand(
+            f"{OUTPUT_DIR}/{{sample}}/SQANTI3/RulesFilter.filtered.gtf",
+            sample=SAMPLES,
+        ),
+
+
+rule index_genome:
+    input:
+        fasta = config["references"]["fasta"]
+    output:
+        fai = config["references"]["fai"]
+    conda:
+        "envs/isoseq3.yml"
+    shell:
+        """
+        samtools faidx {input.fasta}
+        """
+
+
+# =========================================================
+# 1. CCS
+# =========================================================
+rule isoseq_ccs:
+    input:
+        bam = lambda wc: f"{DATA_DIR}/{wc.sample}_demo.subreads.bam"
+
+    output:
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.ccs.bam"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_ccs.out",
+        err = f"{LOG_DIR}/{{sample}}_ccs.err"
+
+    threads: config["isoseq"]["threads_ccs"]
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        mkdir -p {OUTPUT_DIR}/{wildcards.sample}
+
+        ccs \
+            {input.bam} \
+            {output.bam} \
+            --min-rq 0.9 \
+            --min-passes 3 \
+            -j {threads} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 2. LIMA
+# =========================================================
+rule isoseq_lima:
+    input:
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.ccs.bam",
+        primers = config["references"]["primers"]
+
+    params:
+        # lima --split-bam-named treats this as a template and inserts
+        # the matched primer-pair name before the extension; it does
+        # NOT write a file with this exact name.
+        out_template = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.fl.bam"
+
+    output:
+        # actual file lima writes, given NEB_5p/NEB_3p primers
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.fl.NEB_5p--NEB_3p.bam"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_lima.out",
+        err = f"{LOG_DIR}/{{sample}}_lima.err"
+
+    threads: config["isoseq"]["threads_lima"]
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        lima \
+            --isoseq \
+            --different \
+            --split-bam-named \
+            --dump-clips \
+            --dump-removed \
+            -j {threads} \
+            {input.bam} \
+            {input.primers} \
+            {params.out_template} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 3. REFINE
+# =========================================================
+rule isoseq_refine:
+    input:
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.fl.NEB_5p--NEB_3p.bam",
+        primers = config["references"]["primers"]
+
+    output:
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.flnc.bam"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_refine.out",
+        err = f"{LOG_DIR}/{{sample}}_refine.err"
+
+    threads: config["isoseq"]["threads_refine"]
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        isoseq3 refine \
+            --require-polya \
+            {input.bam} \
+            {input.primers} \
+            {output.bam} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 4. BAM -> FASTQ (required by your setup)
+# =========================================================
+rule bam2fastq:
+    input:
+        bam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.flnc.bam"
+
+    output:
+        fastq = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.flnc.fastq.gz"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_bam2fastq.out",
+        err = f"{LOG_DIR}/{{sample}}_bam2fastq.err"
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        bam2fastq \
+            {input.bam} \
+            -o {OUTPUT_DIR}/{wildcards.sample}/{wildcards.sample}.flnc \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 5. MINIMAP2
+# =========================================================
+rule minimap2_align:
+    input:
+        fastq = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.flnc.fastq.gz",
+        ref = config["references"]["fasta"]
+
+    output:
+        sam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.minimap2.sam"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_minimap2.out",
+        err = f"{LOG_DIR}/{{sample}}_minimap2.err"
+
+    threads: config["minimap2"]["threads"]
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        minimap2 \
+            -ax splice \
+            -uf \
+            --secondary=no \
+            -C5 \
+            --MD \
+            -t {threads} \
+            {input.ref} \
+            {input.fastq} \
+            > {output.sam} \
+            2>> {log.err}
+        """
+
+
+# =========================================================
+# 6. SORT SAM
+# =========================================================
+rule sort_sam:
+    input:
+        sam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.minimap2.sam"
+
+    output:
+        sam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.minimap2.sorted.sam"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_sortsam.out",
+        err = f"{LOG_DIR}/{{sample}}_sortsam.err"
+
+    conda:
+        "envs/isoseq3.yml"
+
+    shell:
+        """
+        samtools sort -O SAM \
+            -o {output.sam} \
+            {input.sam} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 7. TAMA COLLAPSE
+# =========================================================
+rule tama_collapse:
+    input:
+        sam = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.minimap2.sorted.sam",
+        ref = config["references"]["fasta"]
+
+    params:
+        prefix = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama"
+
+    output:
+        bed = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama.bed"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_tama.out",
+        err = f"{LOG_DIR}/{{sample}}_tama.err"
+
+    conda:
+        "envs/tama.yml"
+
+    shell:
+        """
+        python {config[tools][tama]}/tama_collapse.py \
+            -s {input.sam} \
+            -f {input.ref} \
+            -p {params.prefix} \
+            -x no_cap \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 8. TAMA -> GTF
+# =========================================================
+rule tama_to_gtf:
+    input:
+        bed = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama.bed"
+
+    output:
+        gtf = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama.gtf"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_tama_gtf.out",
+        err = f"{LOG_DIR}/{{sample}}_tama_gtf.err"
+
+    conda:
+        "envs/tama.yml"
+
+    shell:
+        """
+        python {config[tools][tama]}/tama_go/format_converter/tama_convert_bed_gtf_ensembl_no_cds.py \
+            {input.bed} \
+            {output.gtf} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 9. CLEAN GTF
+# =========================================================
+rule clean_gtf:
+    input:
+        gtf = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama.gtf"
+
+    output:
+        gtf = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.cleaned.tama.gtf"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_clean_gtf.out",
+        err = f"{LOG_DIR}/{{sample}}_clean_gtf.err"
+
+    shell:
+        """
+        awk '$1 ~ /^chr/' {input.gtf} > {output.gtf}
+        """
+
+
+# =========================================================
+# 10. SQANTI3 QC
+# =========================================================
+rule sqanti3_qc:
+    input:
+        gtf = f"{OUTPUT_DIR}/{{sample}}/{{sample}}.tama.gtf",
+        ref_gtf = config["references"]["gtf"],
+        ref_fa = config["references"]["fasta"]
+
+    output:
+        classification = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/SQANTI3_classification.txt",
+        corrected_gtf = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/SQANTI3_corrected.gtf"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_sqanti_qc.out",
+        err = f"{LOG_DIR}/{{sample}}_sqanti_qc.err"
+
+    threads: config["sqanti3"]["threads"]
+
+    conda:
+        "tools/SQANTI3/SQANTI3.conda_env.yml"
+
+    shell:
+        """
+        mkdir -p {OUTPUT_DIR}/{wildcards.sample}/SQANTI3
+
+        export PYTHONPATH={config[tools][cdna_cupcake]}:{config[tools][cdna_cupcake]}/sequence:${{PYTHONPATH:-}}
+
+        python {config[tools][sqanti3]}/sqanti3_qc.py \
+            --isoforms {input.gtf} \
+            --refGTF {input.ref_gtf} \
+            --refFasta {input.ref_fa} \
+            -o SQANTI3 \
+            -d {OUTPUT_DIR}/{wildcards.sample}/SQANTI3 \
+            -t {threads} \
+            >> {log.out} 2>> {log.err}
+        """
+
+
+# =========================================================
+# 11. SQANTI3 FILTER
+# =========================================================
+rule sqanti3_filter:
+    input:
+        classification = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/SQANTI3_classification.txt",
+        gtf = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/SQANTI3_corrected.gtf"
+
+    output:
+        filtered_gtf = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/RulesFilter.filtered.gtf",
+        classification = f"{OUTPUT_DIR}/{{sample}}/SQANTI3/RulesFilter_RulesFilter_classification.txt"
+
+    log:
+        out = f"{LOG_DIR}/{{sample}}_sqanti_filter.out",
+        err = f"{LOG_DIR}/{{sample}}_sqanti_filter.err"
+
+    conda:
+        "tools/SQANTI3/SQANTI3.conda_env.yml"
+
+    shell:
+        """
+        export PYTHONPATH={config[tools][cdna_cupcake]}:{config[tools][cdna_cupcake]}/sequence:${{PYTHONPATH:-}}
+
+        python {config[tools][sqanti3]}/sqanti3_filter.py rules \
+            --sqanti_class {input.classification} \
+            --filter_gtf {input.gtf} \
+            -o RulesFilter \
+            -d {OUTPUT_DIR}/{wildcards.sample}/SQANTI3 \
+            >> {log.out} 2>> {log.err}
+        """
+
